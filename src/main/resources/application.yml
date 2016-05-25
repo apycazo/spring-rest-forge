@@ -1,0 +1,12 @@
+spring:
+  application.name: spring-rest-forge
+  data.rest.basePath: /data
+
+server:
+  port: 8080
+  contextPath: /
+
+spring-rest-forge:
+  test:
+    enable: true
+    value: andres
