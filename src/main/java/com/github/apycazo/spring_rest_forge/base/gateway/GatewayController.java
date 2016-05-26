@@ -24,6 +24,7 @@ import java.util.Optional;
  */
 @Slf4j
 @RestController
+@CrossOrigin(origins = GatewayController.ORIGIN)
 @RequestMapping(value = GatewayController.MAPPING)
 @ConditionalOnProperty(prefix = Constants.PROPERTY_PREFIX, name = "gateway.enable", matchIfMissing = true)
 public class GatewayController
@@ -101,7 +102,6 @@ public class GatewayController
     }
     //</editor-fold>
 
-    @CrossOrigin(origins = GatewayController.ORIGIN)
     @RequestMapping(value = "{serviceName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> receive(
             HttpServletRequest request,
