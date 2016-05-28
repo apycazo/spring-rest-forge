@@ -1,5 +1,6 @@
-package com.github.apycazo.spring_rest_forge.base;
+package com.github.apycazo.spring_rest_forge.base.config;
 
+import com.github.apycazo.spring_rest_forge.base.Constants;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.h2.jdbcx.JdbcDataSource;
