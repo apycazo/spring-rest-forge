@@ -6,7 +6,21 @@ server:
   port: 8080
   contextPath: /
 
+logging:
+  # Uncomment file to enable file logging
+#  file: app.log
+  level:
+    com.github.apycazo: DEBUG
+
 spring-rest-forge:
-  test:
-    enable: true
-    value: andres
+  customH2:
+    enable: false
+    embedded: true
+    generateDdl: true
+    url: jdbc:h2:file:./h2db
+    scan: com.github.apycazo
+  gateway:
+    enable: false
+    mapping: gateway
+    origin: '*'
+  heartbeat.enable: false
