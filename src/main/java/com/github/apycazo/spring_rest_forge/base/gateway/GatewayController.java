@@ -30,9 +30,9 @@ import java.util.Optional;
 public class GatewayController
 {
 
-    public static final String MAPPING = "${" + Constants.PROPERTY_PREFIX + ".gateway.mapping:gateway}";
-    public static final String ORIGIN = "${" + Constants.PROPERTY_PREFIX + ".gateway.origin:*}";
-    protected final Map<String, GatewayService> serviceDirectory = new HashMap<>();
+    static final String MAPPING = "${" + Constants.PROPERTY_PREFIX + ".gateway.mapping:gateway}";
+    static final String ORIGIN = "${" + Constants.PROPERTY_PREFIX + ".gateway.origin:*}";
+    private final Map<String, GatewayService> serviceDirectory = new HashMap<>();
 
     //<editor-fold desc="JsonP controller advice">
     @ControllerAdvice
@@ -66,7 +66,7 @@ public class GatewayController
                 log.info("GatewayController mapped '{}' to '{}'", service.getMapping(), service.getClass().getName());
             }
         } else {
-            log.warn("GatewayController implementations of '{}' not found.", GatewayService.class.getName());
+            log.warn("GatewayController '{}' implementations not found.", GatewayService.class.getName());
         }
     }
     //</editor-fold>
