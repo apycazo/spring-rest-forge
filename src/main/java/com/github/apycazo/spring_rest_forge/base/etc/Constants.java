@@ -1,4 +1,4 @@
-package com.github.apycazo.spring_rest_forge.base;
+package com.github.apycazo.spring_rest_forge.base.etc;
 
 /**
  * @author Andres Picazo

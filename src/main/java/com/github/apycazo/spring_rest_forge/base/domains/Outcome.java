@@ -60,6 +60,11 @@ public class Outcome
         return new Outcome(true);
     }
 
+    public static Outcome success(String msg)
+    {
+        return new Outcome(true, msg);
+    }
+
     public static Outcome failure(String msg)
     {
         return new Outcome(false, msg);

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 @Slf4j
-@Component
+//@Component
 public class Showcase
 {
     @Autowired

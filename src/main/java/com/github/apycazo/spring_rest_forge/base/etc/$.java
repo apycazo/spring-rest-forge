@@ -1,8 +1,9 @@
-package com.github.apycazo.spring_rest_forge.base;
+package com.github.apycazo.spring_rest_forge.base.etc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.github.apycazo.spring_rest_forge.base.etc.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import java.util.TimeZone;
 
 /**
  * Static utility class.
+ *
  * @author Andres Picazo
  */
 public class $
@@ -32,14 +34,16 @@ public class $
     public static final ObjectMapper jacksonPrettyParser = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
 
-    public static String getRequestURL (HttpServletRequest request) {
+    public static String getRequestURL(HttpServletRequest request)
+    {
 
         String params = request.getQueryString();
         params = params == null ? "" : "?" + params;
         return request.getRequestURL() + params;
     }
 
-    public static boolean setWithReflection(Object object, String fieldName, Object fieldValue) {
+    public static boolean setWithReflection(Object object, String fieldName, Object fieldValue)
+    {
         Class<?> clazz = object.getClass();
         while (clazz != null) {
             try {
@@ -57,7 +61,8 @@ public class $
     }
 
     @SuppressWarnings("unchecked")
-    public static <E> E getWithReflection(Object object, String fieldName) {
+    public static <E> E getWithReflection(Object object, String fieldName)
+    {
         Class<?> clazz = object.getClass();
         while (clazz != null) {
             try {
@@ -73,7 +78,8 @@ public class $
         return null;
     }
 
-    public static String getStackTraceAsString(Throwable e) {
+    public static String getStackTraceAsString(Throwable e)
+    {
         try {
             if (e == null) {
                 return "";
@@ -87,59 +93,62 @@ public class $
         }
     }
 
-    public static DateFormat getDateFormatterGmtIso8601() {
-
+    public static DateFormat getDateFormatterGmtIso8601()
+    {
         // No locale set?
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
         return format;
     }
 
-    public static Long getEpoch () {
-
-        return System.currentTimeMillis()/1000;
+    public static Long getEpoch()
+    {
+        return System.currentTimeMillis() / 1000;
     }
 
-    public static boolean isTrue (Number value) {
-
-        return value != null && value.equals(0) == false;
+    public static boolean isTrue(Number value)
+    {
+        return value != null && !value.equals(0);
     }
 
-    public static boolean isFalse (Number value) {
-
-        return value == null || value.equals(0) == true;
+    public static boolean isFalse(Number value)
+    {
+        return value == null || value.equals(0);
     }
 
     /**
      * Safe get for Object.toString, if null, will return an empty string.
+     *
      * @param object The object to call toString method onto.
      * @return A not null string.
      */
-    public static String stringValue (Object object) {
-
+    public static String stringValue(Object object)
+    {
         return stringValue(object, Constants.EMPTY_STRING);
     }
 
     /**
      * Safe get for Object.toString, if null, will return an empty string.
-     * @param object The object to call toString method onto.
+     *
+     * @param object       The object to call toString method onto.
      * @param defaultValue The default value to return when null, if null, will use an empty string instead.
      * @return A not null string.
      */
-    public static String stringValue (Object object, String defaultValue) {
-
+    public static String stringValue(Object object, String defaultValue)
+    {
         defaultValue = defaultValue == null ? Constants.EMPTY_STRING : defaultValue;
         return object == null ? defaultValue : object.toString();
     }
 
     /**
      * Formats a string replacing each "{}" occurrence with the next value.toString.
+     *
      * @param format A string format, like "Hi, I am {}, nice to meet you".
      * @param values A value array, like ["Mike"].
      * @return A formatted String, like "Hi, I am Mike, nice to meet you".
      */
-    public static String text (String format, Object ... values) {
-
+    public static String text(String format, Object... values)
+    {
         if (values == null) {
             return stringValue(format);
         }
@@ -153,42 +162,43 @@ public class $
 
     /**
      * Null safe method get of an array size.
+     *
      * @param array The array to test for size.
      * @return The size of the array, 0 if null.
      */
-    public static int sizeOf (Object [] array) {
-
+    public static int sizeOf(Object[] array)
+    {
         if (array == null) {
             return 0;
-        }
-        else {
+        } else {
             return array.length;
         }
     }
 
     /**
      * Null safe method get of a collection size.
+     *
      * @param collection The collection to test for size.
      * @return The size of the collection, 0 if null.
      */
-    public static int sizeOf (Collection collection) {
-
+    public static int sizeOf(Collection collection)
+    {
         if (collection == null) {
             return 0;
-        }
-        else {
+        } else {
             return collection.size();
         }
     }
 
     /**
      * Safe instance for a collection iterator. Will create an empty LinkedList if null.
+     *
      * @param collection The collection to generate an iterator.
-     * @param <T> The inner collection class.
+     * @param <T>        The inner collection class.
      * @return An iterator of the appropriate class.
      */
-    public static <T> Iterator<T> getIterator (Collection<T> collection) {
-
+    public static <T> Iterator<T> getIterator(Collection<T> collection)
+    {
         if (collection == null) {
             collection = new LinkedList<>();
         }
@@ -197,22 +207,24 @@ public class $
 
     /**
      * Exception safe conversion from Object to JSON String using static jacksonParser.
+     *
      * @param value The value to serialize.
      * @return The serialized value, or "{}" if an exception was thrown.
      */
-    public static String toJson (Object value) {
-
+    public static String toJson(Object value)
+    {
         return toJson(value, Constants.EMPTY_JSON);
     }
 
     /**
      * Exception safe conversion from Object to JSON String using static jacksonParser.
-     * @param value The value to serialize.
+     *
+     * @param value        The value to serialize.
      * @param defaultValue A value to return in case of error.
      * @return The serialized value, or the provided default value if an exception was thrown.
      */
-    public static String toJson (Object value, String defaultValue) {
-
+    public static String toJson(Object value, String defaultValue)
+    {
         try {
             return jacksonParser.writeValueAsString(value);
         } catch (JsonProcessingException e) {
@@ -222,11 +234,12 @@ public class $
 
     /**
      * Generates a quoted version of a string.
+     *
      * @param value The string to quote.
      * @return The value, with quoting signs, like 'test'.
      */
-    public static String quote (String value) {
-
-        return String.format("'%s'",value);
+    public static String quote(String value)
+    {
+        return String.format("'%s'", value);
     }
 }

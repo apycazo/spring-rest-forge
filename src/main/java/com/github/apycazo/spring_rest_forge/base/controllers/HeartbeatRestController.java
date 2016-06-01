@@ -1,6 +1,7 @@
-package com.github.apycazo.spring_rest_forge.base;
+package com.github.apycazo.spring_rest_forge.base.controllers;
 
 import com.github.apycazo.spring_rest_forge.base.domains.Outcome;
+import com.github.apycazo.spring_rest_forge.base.etc.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.util.StringUtils;

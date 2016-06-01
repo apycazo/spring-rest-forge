@@ -1,6 +1,6 @@
 package com.github.apycazo.spring_rest_forge.base.gateway;
 
-import com.github.apycazo.spring_rest_forge.base.Constants;
+import com.github.apycazo.spring_rest_forge.base.etc.Constants;
 import com.github.apycazo.spring_rest_forge.base.domains.Outcome;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = GatewayController.ORIGIN)
 @RequestMapping(value = GatewayController.MAPPING)
-@ConditionalOnProperty(prefix = Constants.PROPERTY_PREFIX, name = "gateway.enable", matchIfMissing = true)
+@ConditionalOnProperty(prefix = Constants.PROPERTY_PREFIX, name = "gateway.enable", matchIfMissing = false)
 public class GatewayController
 {
 
