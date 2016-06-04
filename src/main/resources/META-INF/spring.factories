@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.apycazo.spring_rest_forge.base.ForgeBaseAutoConfig
