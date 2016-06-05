@@ -23,6 +23,6 @@ public class Constants
     public static final String PERIOD = ".";
     public static final String DOUBLE_QUOTE = "\"";
 
-    public static final String EMPTY_JSON = "{}";
-    public static final String EMPTY_ARRAY = "[]";
+    public static final String EMPTY_JSON_STR = "{}";
+    public static final String EMPTY_ARRAY_STR = "[]";
 }

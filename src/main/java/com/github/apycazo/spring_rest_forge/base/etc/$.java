@@ -3,7 +3,6 @@ package com.github.apycazo.spring_rest_forge.base.etc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.apycazo.spring_rest_forge.base.etc.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
@@ -213,7 +212,7 @@ public class $
      */
     public static String toJson(Object value)
     {
-        return toJson(value, Constants.EMPTY_JSON);
+        return toJson(value, Constants.EMPTY_JSON_STR);
     }
 
     /**

@@ -1,3 +1,9 @@
+# Automatic injection of interceptors
+
+To include an interceptor, just create it as a @Component, and make sure the injector is enabled:
+
+```spring-rest-forge.registerInterceptors.enable : true```
+
 # Original sources for custom h2
 
 Until some tests are written, note that the custom h2 configuration previously consisted on three files:
