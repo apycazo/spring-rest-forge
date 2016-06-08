@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
+
 /**
  * @author Andres Picazo
  */
@@ -21,9 +24,10 @@ public class HeartbeatRestController
 {
 
     @RequestMapping(value = "/**/heartbeat")
-    public Outcome heartbeat (@RequestBody(required = false) String body)
+    public Outcome heartbeat (@RequestBody(required = false) String body, HttpServletRequest request)
     {
-        log.info("Heartbeat '{}'", StringUtils.isEmpty(body) ? "<empty>" : body);
+        body = Optional.ofNullable(body).orElse("<>");
+        log.info("Heartbeat '{}'", body);
         return new Outcome(true, "Heartbeat response", body);
     }
 }

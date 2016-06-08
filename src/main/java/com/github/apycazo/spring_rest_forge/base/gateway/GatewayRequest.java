@@ -14,16 +14,16 @@ import java.util.Optional;
 public class GatewayRequest {
 
     private HttpServletRequest httpRequest;
-    private Optional<String> httpBody;
+    private String httpBody;
     private RequestMethod httpMethod;
 
     public GatewayRequest () {}
 
-    public GatewayRequest (HttpServletRequest httpRequest, Optional<String> httpBody)
+    public GatewayRequest (HttpServletRequest httpRequest, String httpBody)
     {
         this.httpRequest = httpRequest;
-        this.httpBody = httpBody != null ? httpBody : Optional.empty();
-        httpMethod = RequestMethod.valueOf(httpRequest.getMethod());
+        this.httpBody = httpBody;
+        this.httpMethod = RequestMethod.valueOf(httpRequest.getMethod());
     }
 
 }

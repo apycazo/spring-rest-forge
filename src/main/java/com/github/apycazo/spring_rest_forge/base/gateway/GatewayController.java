@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractJsonpResponseBodyAdvice;
 
@@ -26,7 +27,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = GatewayController.ORIGIN)
 @RequestMapping(value = GatewayController.MAPPING)
-@ConditionalOnProperty(prefix = Constants.PROPERTY_PREFIX, name = "gateway.enable", matchIfMissing = false)
+@ConditionalOnProperty(prefix = Constants.PROPERTY_PREFIX, name = "gateway.enable")
 public class GatewayController
 {
 
@@ -38,7 +39,6 @@ public class GatewayController
     @ControllerAdvice
     protected static class JsonpAdvice extends AbstractJsonpResponseBodyAdvice
     {
-
         public JsonpAdvice()
         {
             super("callback");
@@ -48,9 +48,11 @@ public class GatewayController
 
     //<editor-fold desc="Exception handler">
     @ExceptionHandler(Exception.class)
-    public Outcome handleExceptions(HttpServletRequest request, Exception e)
+    public ResponseEntity<Object> handleExceptions(HttpServletRequest request, Exception e)
     {
-        return Outcome.exception("Error on gateway path " + request.getRequestURL(), e);
+        return Outcome
+                .exception("Error on gateway path " + request.getRequestURL(), e)
+                .asResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     //</editor-fold>
 
@@ -105,7 +107,7 @@ public class GatewayController
     @RequestMapping(value = "{serviceName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> receive(
             HttpServletRequest request,
-            @RequestBody(required = false) Optional<String> body,
+            @RequestBody(required = false) String body,
             @PathVariable String serviceName)
     {
         // Fetch service
@@ -117,13 +119,14 @@ public class GatewayController
 
         // Handle request
         try {
-            GatewayRequest gr = new GatewayRequest(request, body);
+            String requestContent = Optional.ofNullable(body).orElse("");
+            GatewayRequest gr = new GatewayRequest(request, requestContent);
             Object result = service.handleRequest(gr);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
+            log.error("Exception processing service '{}", serviceName, e);
             return Outcome.exception(e).asResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
 }
