@@ -24,4 +24,5 @@ spring-rest-forge:
     mapping: gateway
     origin: '*'
   heartbeat.enable: true
-  registerInterceptors.enable: false
+  registerInterceptors.enable: true
+  trafficLogger.enable: true

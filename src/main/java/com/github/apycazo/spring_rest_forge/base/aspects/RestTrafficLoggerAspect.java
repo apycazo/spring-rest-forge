@@ -1,11 +1,13 @@
 package com.github.apycazo.spring_rest_forge.base.aspects;
 
+import com.github.apycazo.spring_rest_forge.base.etc.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -20,12 +22,13 @@ import java.util.Optional;
 @Slf4j
 @Aspect
 @Component
+@ConditionalOnProperty(prefix = Constants.PROPERTY_PREFIX, name = "trafficLogger.enable")
 class RestTrafficLoggerAspect
 {
-    @Autowired
+    @Autowired(required = false)
     private HttpServletRequest request;
 
-    @Autowired
+    @Autowired(required = false)
     private HttpServletResponse response;
 
     @PostConstruct
@@ -33,8 +36,6 @@ class RestTrafficLoggerAspect
     {
         log.info("Loading aspect '{}'", RestTrafficLoggerAspect.class.getSimpleName());
     }
-
-    // This requires improvement before uploading
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void requestMappingPointcut() {}
